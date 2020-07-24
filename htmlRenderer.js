@@ -1,3 +1,6 @@
+const Manager = require("./Manager.js");
+const Engineer = require("./Engineer.js");
+const Intern = require("./Intern.js");
 const path = require("path");
 const fs = require("fs");
 const app = require("./app.js")

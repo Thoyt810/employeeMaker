@@ -20,7 +20,6 @@ let employee = {
 const employeeArray = [];
 
 function managerQuestion() {
-    console.log("-----manager was called------")
     inquirer.prompt([
         {
             type: "input",
