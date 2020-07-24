@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const app = require("./app.js")
 
 const templatesDir = path.resolve(__dirname, "../templates");
 

@@ -10,7 +10,43 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./htmlRenderer");
 
-function promptUser() {
+function managerQuestion() {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "What is your office number?",
+        }
+    ]).then(function(answers2) {
+        console.log(answers2)
+    })
+}
+
+function internQuestion() {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "school",
+            message: "What is your school name?",
+        }
+    ]).then(function(answers2) {
+        console.log(answers2)
+    })
+}
+
+function engineerQuestion() {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "github",
+            message: "What is your Github username?",
+        },
+    ]).then(function(answers2) {
+        console.log(answers2)
+    })
+}
+
+function makingEmployee() {
     return inquirer.prompt([
         {
             type: "input",
@@ -33,15 +69,37 @@ function promptUser() {
             message: "What position are you?",
             choices: ["Manager", "Engineer", "Intern"]
         },
+    ]).then(function(answers){
+        render(answers)
+        // const position = answers.position
+    //     if (position === "Manager") {
+    //         managerQuestion();
+    //     } else if (position === "Engineer") {
+    //         engineerQuestion()
+    //     }  else if (position === "Intern") {
+    //         internQuestion()
+    //     }
+    // anotherEmployee()
+    })
+
+}
+
+function anotherEmployee() {
+    return inquirer.prompt([
         {
             type: "confirm",
-            name: "confirm1",
-            message: "Do you want to make another team member?",
+            name: "confirm",
+            message: "Do you want to make a team member?",
             properties: []
         }
-    ])
+    ]).then(function(answers) {
+    if (answers.confirm === true) {
+        makingEmployee()
+    } else ("Okay! Working solo!")
+    })
 }
-promptUser();
+
+anotherEmployee();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
