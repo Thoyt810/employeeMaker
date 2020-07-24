@@ -10,15 +10,33 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./htmlRenderer");
 
+let employee = {
+    name: "",
+    id: "",
+    email: "",
+    role: ""
+}
+
+const employeeArray = [];
+
 function managerQuestion() {
-    return inquirer.prompt([
+    console.log("-----manager was called------")
+    inquirer.prompt([
         {
             type: "input",
             name: "officeNumber",
             message: "What is your office number?",
         }
-    ]).then(function(answers2) {
-        console.log(answers2)
+    ]).then(function (answers2) {
+        employee["officeNumber"] = answers2.officeNumber
+        employeeArray.push(employee)
+        employee = {
+            name: "",
+            id: "",
+            email: "",
+            role: ""
+        }
+        anotherEmployee()
     })
 }
 
@@ -29,8 +47,16 @@ function internQuestion() {
             name: "school",
             message: "What is your school name?",
         }
-    ]).then(function(answers2) {
-        console.log(answers2)
+    ]).then(function (answers2) {
+        employee["officeNumber"] = answers2.school
+        employeeArray.push(employee)
+        employee = {
+            name: "",
+            id: "",
+            email: "",
+            role: ""
+        }
+        anotherEmployee()
     })
 }
 
@@ -41,13 +67,21 @@ function engineerQuestion() {
             name: "github",
             message: "What is your Github username?",
         },
-    ]).then(function(answers2) {
-        console.log(answers2)
+    ]).then(function (answers2) {
+        employee["officeNumber"] = answers2.github
+        employeeArray.push(employee)
+        employee = {
+            name: "",
+            id: "",
+            email: "",
+            role: ""
+        }
+        anotherEmployee()  
     })
 }
 
 function makingEmployee() {
-    return inquirer.prompt([
+    inquirer.prompt([
         {
             type: "input",
             name: "name",
@@ -65,36 +99,38 @@ function makingEmployee() {
         },
         {
             type: "rawlist",
-            name: "position",
+            name: "role",
             message: "What position are you?",
             choices: ["Manager", "Engineer", "Intern"]
         },
-    ]).then(function(answers) {
-        const position = answers.position
+    ]).then(function (answers) {
+        const position = answers.role
+        employee = answers
         if (position === "Manager") {
             managerQuestion();
         } else if (position === "Engineer") {
             engineerQuestion()
-        }  else if (position === "Intern") {
+        } else if (position === "Intern") {
             internQuestion()
         }
-    anotherEmployee()
     })
 
 }
 
 function anotherEmployee() {
-    return inquirer.prompt([
+    inquirer.prompt([
         {
             type: "confirm",
             name: "confirm",
             message: "Do you want to make a team member?",
             properties: []
         }
-    ]).then(function(answers) {
-    if (answers.confirm === true) {
-        makingEmployee()
-    } else ("Okay! Working solo!")
+    ]).then(function (answers) {
+        if (answers.confirm === true) {
+            makingEmployee()
+        } else {
+            render(employeeArray)
+        }
     })
 }
 
