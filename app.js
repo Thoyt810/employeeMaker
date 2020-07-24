@@ -69,17 +69,16 @@ function makingEmployee() {
             message: "What position are you?",
             choices: ["Manager", "Engineer", "Intern"]
         },
-    ]).then(function(answers){
-        render(answers)
-        // const position = answers.position
-    //     if (position === "Manager") {
-    //         managerQuestion();
-    //     } else if (position === "Engineer") {
-    //         engineerQuestion()
-    //     }  else if (position === "Intern") {
-    //         internQuestion()
-    //     }
-    // anotherEmployee()
+    ]).then(function(answers) {
+        const position = answers.position
+        if (position === "Manager") {
+            managerQuestion();
+        } else if (position === "Engineer") {
+            engineerQuestion()
+        }  else if (position === "Intern") {
+            internQuestion()
+        }
+    anotherEmployee()
     })
 
 }
