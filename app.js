@@ -27,14 +27,8 @@ function managerQuestion() {
             message: "What is your office number?",
         }
     ]).then(function (answers2) {
-        employee["officeNumber"] = answers2.officeNumber
-        employeeArray.push(employee)
-        employee = {
-            name: "",
-            id: "",
-            email: "",
-            role: ""
-        }
+        Manager["officeNumber"] = answers2.officeNumber
+        employeeArray.push(Manager)
         anotherEmployee()
     })
 }
@@ -47,14 +41,8 @@ function internQuestion() {
             message: "What is your school name?",
         }
     ]).then(function (answers2) {
-        employee["officeNumber"] = answers2.school
-        employeeArray.push(employee)
-        employee = {
-            name: "",
-            id: "",
-            email: "",
-            role: ""
-        }
+        Intern["school"] = answers2.school
+        employeeArray.push(Intern)
         anotherEmployee()
     })
 }
@@ -67,14 +55,8 @@ function engineerQuestion() {
             message: "What is your Github username?",
         },
     ]).then(function (answers2) {
-        employee["officeNumber"] = answers2.github
-        employeeArray.push(employee)
-        employee = {
-            name: "",
-            id: "",
-            email: "",
-            role: ""
-        }
+        Engineer["github"] = answers2.github
+        employeeArray.push(Engineer)
         anotherEmployee()  
     })
 }
@@ -104,12 +86,27 @@ function makingEmployee() {
         },
     ]).then(function (answers) {
         const position = answers.role
-        employee = answers
+        // employeeArray.push(answers)
         if (position === "Manager") {
+            new Manager;
+            Manager["name"] = answers.name;
+            Manager["id"] = answers.id;
+            Manager["email"] = answers.email;
+            Manager["role"] = answers.role
             managerQuestion();
         } else if (position === "Engineer") {
+            new Engineer;
+            Engineer["name"] = answers.name;
+            Engineer["id"] = answers.id;
+            Engineer["email"] = answers.email;
+            Engineer["role"] = answers.role
             engineerQuestion()
         } else if (position === "Intern") {
+            new Intern;
+            Intern["name"] = answers.name;
+            Intern["id"] = answers.id;
+            Intern["email"] = answers.email;
+            Intern["role"] = answers.role
             internQuestion()
         }
     })
