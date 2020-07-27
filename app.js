@@ -45,10 +45,8 @@ function makingEmployee() {
         },
     ]).then(function (answers) {
         const position = answers.role
-        // employeeArray.push(answers)
         if (position === "Manager") {
             let employee = new Manager(answers.name, answers.id, answers.email)
-            // employeeArray.push(employee)
             function managerQuestion() {
                 inquirer.prompt([
                     {
