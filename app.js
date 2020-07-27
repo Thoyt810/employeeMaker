@@ -57,7 +57,7 @@ function makingEmployee() {
                 ]).then(function (answers2) {
                     employee ["officeNumber"] = answers2.officeNumber;
                     employeeArray.push(employee);
-                    render(employeeArray)
+                    // render(employeeArray)
                     anotherEmployee()
                 })
             }
@@ -75,7 +75,7 @@ function makingEmployee() {
                 ]).then(function (answers2) {
                     employee["github"] = answers2.github
                     employeeArray.push(employee);
-                    render(employeeArray)
+                    // render(employeeArray)
                     anotherEmployee()  
                 })
             }
@@ -92,7 +92,7 @@ function makingEmployee() {
                 ]).then(function (answers2) {
                     employee ["school"] = answers2.school
                     employeeArray.push(employee);
-                    render(employeeArray)
+                    // render(employeeArray)
                     anotherEmployee()
                 })
             }
@@ -114,6 +114,7 @@ function anotherEmployee() {
         if (answers.confirm === true) {
             makingEmployee()
         } else {
+            render(employeeArray)
         }
     })
 }
