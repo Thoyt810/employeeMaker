@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./htmlRenderer");
+const Employee = require("./Employee.js");
 
 let employee = {
     name: "",
@@ -18,48 +19,6 @@ let employee = {
 }
 
 const employeeArray = [];
-
-function managerQuestion() {
-    inquirer.prompt([
-        {
-            type: "input",
-            name: "officeNumber",
-            message: "What is your office number?",
-        }
-    ]).then(function (answers2) {
-        Manager["officeNumber"] = answers2.officeNumber
-        employeeArray.push(Manager)
-        anotherEmployee()
-    })
-}
-
-function internQuestion() {
-    return inquirer.prompt([
-        {
-            type: "input",
-            name: "school",
-            message: "What is your school name?",
-        }
-    ]).then(function (answers2) {
-        Intern["school"] = answers2.school
-        employeeArray.push(Intern)
-        anotherEmployee()
-    })
-}
-
-function engineerQuestion() {
-    return inquirer.prompt([
-        {
-            type: "input",
-            name: "github",
-            message: "What is your Github username?",
-        },
-    ]).then(function (answers2) {
-        Engineer["github"] = answers2.github
-        employeeArray.push(Engineer)
-        anotherEmployee()  
-    })
-}
 
 function makingEmployee() {
     inquirer.prompt([
@@ -88,25 +47,57 @@ function makingEmployee() {
         const position = answers.role
         // employeeArray.push(answers)
         if (position === "Manager") {
-            new Manager;
-            Manager["name"] = answers.name;
-            Manager["id"] = answers.id;
-            Manager["email"] = answers.email;
-            Manager["role"] = answers.role
+            let employee = new Manager(answers.name, answers.id, answers.email)
+            // employeeArray.push(employee)
+            function managerQuestion() {
+                inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "officeNumber",
+                        message: "What is your office number?",
+                    }
+                ]).then(function (answers2) {
+                    employee ["officeNumber"] = answers2.officeNumber;
+                    employeeArray.push(employee);
+                    render(employeeArray)
+                    anotherEmployee()
+                })
+            }
             managerQuestion();
+
         } else if (position === "Engineer") {
-            new Engineer;
-            Engineer["name"] = answers.name;
-            Engineer["id"] = answers.id;
-            Engineer["email"] = answers.email;
-            Engineer["role"] = answers.role
+            let employee = new Engineer (answers.name, answers.id, answers.email)
+            function engineerQuestion() {
+                return inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "github",
+                        message: "What is your Github username?",
+                    },
+                ]).then(function (answers2) {
+                    employee["github"] = answers2.github
+                    employeeArray.push(employee);
+                    render(employeeArray)
+                    anotherEmployee()  
+                })
+            }
             engineerQuestion()
         } else if (position === "Intern") {
-            new Intern;
-            Intern["name"] = answers.name;
-            Intern["id"] = answers.id;
-            Intern["email"] = answers.email;
-            Intern["role"] = answers.role
+            let employee = new Intern(answers.name, answers.id, answers.email);
+            function internQuestion() {
+                return inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "school",
+                        message: "What is your school name?",
+                    }
+                ]).then(function (answers2) {
+                    employee ["school"] = answers2.school
+                    employeeArray.push(employee);
+                    render(employeeArray)
+                    anotherEmployee()
+                })
+            }
             internQuestion()
         }
     })
@@ -125,7 +116,6 @@ function anotherEmployee() {
         if (answers.confirm === true) {
             makingEmployee()
         } else {
-            render(employeeArray)
         }
     })
 }
